@@ -1,0 +1,10 @@
+# Ignore Visual Studio temp files, build results, and user-specific files
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+bin/
+obj/
+TestResults/
+*.DotSettings.user
