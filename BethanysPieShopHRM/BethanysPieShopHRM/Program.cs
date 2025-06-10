@@ -14,15 +14,15 @@ Console.WriteLine("Welcome to Bethany's Pie Shop!");
 
 ////Console.WriteLine("Hello " + firstName + " " + lastName);   
 
-//int monthlyWage = 1234;
+var monthlyWage = 1234;
 
-//int months = 12, bonus = 1000;
+int months = 12, bonus = 1000;
 
-//bool isActive = true;
+var isActive = true;
 
-//double rating = 99.25;
+var rating = 99.25;
 
-////byte numberOfEmployees = 300;
+var numberOfEmployees = 300;
 
 //hoursWorked = 125;
 
@@ -74,7 +74,7 @@ Console.WriteLine("Welcome to Bethany's Pie Shop!");
 
 //bool isLetter = char.IsLetter(userSelection);
 
-//DateTime hireDate = new DateTime(2022, 3, 28,14,30, 0);
+var hireDate = new DateTime(2022, 3, 28, 14, 30, 0);
 //Console.WriteLine(hireDate);
 
 //DateTime exitDate = new DateTime(2025, 12, 11);
@@ -94,15 +94,15 @@ Console.WriteLine("Welcome to Bethany's Pie Shop!");
 //Console.WriteLine(startHour.ToLongDateString());
 //Console.WriteLine(endHour.ToShortTimeString());
 
-int numberOfHoursdWorked = 165;
+//int numberOfHoursdWorked = 165;
 
-long veryLongMonth = numberOfHoursdWorked; // works fine
+//long veryLongMonth = numberOfHoursdWorked; // works fine
 
-double d = 123456789.0;
+//double d = 123456789.0;
 
-int x = (int)d;
+//int x = (int)d;
 
-int intVeryLongMOnth = (int)veryLongMonth;
+//int intVeryLongMOnth = (int)veryLongMonth;
 
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
