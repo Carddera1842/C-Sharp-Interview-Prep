@@ -1,108 +1,21 @@
 ﻿
-/*
- * Here are some tests around working with valid identifiers in C#
- * We can write here as muchas we want, this is all comment
-*/
+int age = 23;
 
-Console.WriteLine("Welcome to Bethany's Pie Shop!");
+bool a = age == 23;
 
-////Console.WriteLine("Please enter your first name");
-////string firstName = Console.ReadLine();
+Console.WriteLine("Age is 23: " + a);
 
-////Console.WriteLine("Please enter your last name");
-////string lastName = Console.ReadLine();
+bool b = age >= 23;
+Console.WriteLine("Age is greater than 23: " + b);
 
-////Console.WriteLine("Hello " + firstName + " " + lastName);   
+bool c = (age >= 18) && (age <= 65);
+Console.WriteLine("Age is between 18 and 65: " + c);
 
-var monthlyWage = 1234;
+int age1 = 16;
+int age2 = 64;
 
-int months = 12, bonus = 1000;
+bool d = (age1 >= 18) && (age2 <= 65);
+Console.WriteLine("Age1 is greater than 18 AND age2 is less than 65: " + d);
 
-var isActive = true;
-
-var rating = 99.25;
-
-var numberOfEmployees = 300;
-
-//hoursWorked = 125;
-
-//hoursWorked = 148;
-
-////monthlyWage = true;
-
-//const double interestRate = 0.07;
-
-////interestRate = 0.08;
-
-//string firstName = "Bethany";
-//string lastName = "Smith";
-
-//string emptyString = "";
-
-//Console.WriteLine("Please enter your name");
-//string name = Console.ReadLine();
-
-//string s;
-
-//s = firstName;
-
-//double ratePerHour = 12.34;
-//int numberOfHoursWorked = 165;
-
-//double currentMonthWage = ratePerHour * numberOfHoursWorked + bonus;
-//Console.WriteLine(currentMonthWage);
-
-//ratePerHour += 3; //ratePerHour = reatePerHour + 3
-//Console.WriteLine(ratePerHour);
-
-//if (currentMonthWage > 2000)
-//    Console.WriteLine("Top paid employee!");
-
-//int numberOfEmployees = 15;
-//numberOfEmployees--;
-
-//bool a;
-//int b;
-
-//int intMaxValue = int.MaxValue;
-//int intMinValue = int.MinValue;
-
-//char userSelection = 'a';
-//char upperVersion = char.ToUpper(userSelection);
-
-//bool isDigit = char.IsDigit(userSelection);
-
-//bool isLetter = char.IsLetter(userSelection);
-
-var hireDate = new DateTime(2022, 3, 28, 14, 30, 0);
-//Console.WriteLine(hireDate);
-
-//DateTime exitDate = new DateTime(2025, 12, 11);
-
-////DateTime invalidDate = new DateTime(2025, 15, 11);
-
-//DateTime startDate = hireDate.AddDays(15);
-//Console.WriteLine(startDate);
-
-//DateTime currentDate = DateTime.Now;
-//bool areWeInDst = currentDate.IsDaylightSavingTime();
-
-//DateTime startHour = DateTime.Now;
-//TimeSpan workTime = new TimeSpan(8, 35, 0);
-//DateTime endHour = startHour.Add(workTime);
-
-//Console.WriteLine(startHour.ToLongDateString());
-//Console.WriteLine(endHour.ToShortTimeString());
-
-//int numberOfHoursdWorked = 165;
-
-//long veryLongMonth = numberOfHoursdWorked; // works fine
-
-//double d = 123456789.0;
-
-//int x = (int)d;
-
-//int intVeryLongMOnth = (int)veryLongMonth;
-
-Console.WriteLine("Press any key to exit...");
-Console.ReadKey();
+bool e = (age1 >= 18) || (age2 <= 65);
+Console.WriteLine("Age1 is greater than 18 OR age2 is less than 65: " + e);
