@@ -30,3 +30,11 @@ hoursWorked = 148;
 const double interestRate = 0.07;
 
 //interestRate = 0.08;
+
+string firstName = "Bethany";
+string lastName = "Smith";
+
+string emptyString = "";
+
+Console.WriteLine("Please enter your name");
+string name = Console.ReadLine();
