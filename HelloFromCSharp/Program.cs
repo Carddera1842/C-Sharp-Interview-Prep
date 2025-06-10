@@ -26,3 +26,7 @@ hoursWorked = 125;
 hoursWorked = 148;
 
 //monthlyWage = true;
+
+const double interestRate = 0.07;
+
+//interestRate = 0.08;
