@@ -74,25 +74,35 @@ Console.WriteLine("Welcome to Bethany's Pie Shop!");
 
 //bool isLetter = char.IsLetter(userSelection);
 
-DateTime hireDate = new DateTime(2022, 3, 28,14,30, 0);
-Console.WriteLine(hireDate);
+//DateTime hireDate = new DateTime(2022, 3, 28,14,30, 0);
+//Console.WriteLine(hireDate);
 
-DateTime exitDate = new DateTime(2025, 12, 11);
+//DateTime exitDate = new DateTime(2025, 12, 11);
 
-//DateTime invalidDate = new DateTime(2025, 15, 11);
+////DateTime invalidDate = new DateTime(2025, 15, 11);
 
-DateTime startDate = hireDate.AddDays(15);
-Console.WriteLine(startDate);
+//DateTime startDate = hireDate.AddDays(15);
+//Console.WriteLine(startDate);
 
-DateTime currentDate = DateTime.Now;
-bool areWeInDst = currentDate.IsDaylightSavingTime();
+//DateTime currentDate = DateTime.Now;
+//bool areWeInDst = currentDate.IsDaylightSavingTime();
 
-DateTime startHour = DateTime.Now;
-TimeSpan workTime = new TimeSpan(8, 35, 0);
-DateTime endHour = startHour.Add(workTime);
+//DateTime startHour = DateTime.Now;
+//TimeSpan workTime = new TimeSpan(8, 35, 0);
+//DateTime endHour = startHour.Add(workTime);
 
-Console.WriteLine(startHour.ToLongDateString());
-Console.WriteLine(endHour.ToShortTimeString());
+//Console.WriteLine(startHour.ToLongDateString());
+//Console.WriteLine(endHour.ToShortTimeString());
+
+int numberOfHoursdWorked = 165;
+
+long veryLongMonth = numberOfHoursdWorked; // works fine
+
+double d = 123456789.0;
+
+int x = (int)d;
+
+int intVeryLongMOnth = (int)veryLongMonth;
 
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
