@@ -4,7 +4,7 @@
  * We can write here as muchas we want, this is all comment
 */
 
-////Console.WriteLine("Hello everyone");
+Console.WriteLine("Welcome to Bethany's Pie Shop!");
 
 ////Console.WriteLine("Please enter your first name");
 ////string firstName = Console.ReadLine();
@@ -64,15 +64,35 @@
 //bool a;
 //int b;
 
-int intMaxValue = int.MaxValue;
-int intMinValue = int.MinValue;
+//int intMaxValue = int.MaxValue;
+//int intMinValue = int.MinValue;
 
-char userSelection = 'a';
-char upperVersion = char.ToUpper(userSelection);
+//char userSelection = 'a';
+//char upperVersion = char.ToUpper(userSelection);
 
-bool isDigit = char.IsDigit(userSelection);
+//bool isDigit = char.IsDigit(userSelection);
 
-bool isLetter = char.IsLetter(userSelection);
+//bool isLetter = char.IsLetter(userSelection);
+
+DateTime hireDate = new DateTime(2022, 3, 28,14,30, 0);
+Console.WriteLine(hireDate);
+
+DateTime exitDate = new DateTime(2025, 12, 11);
+
+//DateTime invalidDate = new DateTime(2025, 15, 11);
+
+DateTime startDate = hireDate.AddDays(15);
+Console.WriteLine(startDate);
+
+DateTime currentDate = DateTime.Now;
+bool areWeInDst = currentDate.IsDaylightSavingTime();
+
+DateTime startHour = DateTime.Now;
+TimeSpan workTime = new TimeSpan(8, 35, 0);
+DateTime endHour = startHour.Add(workTime);
+
+Console.WriteLine(startHour.ToLongDateString());
+Console.WriteLine(endHour.ToShortTimeString());
 
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
