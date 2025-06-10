@@ -10,3 +10,5 @@ Console.WriteLine("Please enter your last name");
 string lastName = Console.ReadLine();
 
 Console.WriteLine("Hello " + firstName + " " + lastName);  
+
+Console.ReadLine();
