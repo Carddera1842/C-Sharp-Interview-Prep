@@ -9,16 +9,34 @@ namespace BethanysPieShopHRM
     internal class Utilities
     {
 
-        public static void UsingStringEquality()
+        public static void ParsingStrings()
         {
-            string name1 = "Bethany";
-            string name2 = "BETHANY";
+            Console.WriteLine("Enter the wage: ");
+            string wage = Console.ReadLine();
 
-            Console.WriteLine("Are both names equal? " + (name1 == name2));
-            Console.WriteLine("Is name equal to Bethany? " + (name1 == "Bethany"));
-            Console.WriteLine("Is name equal to BETHANY? " + name2.Equals("BETHANY"));
-            Console.WriteLine("Is lowercase name equal to bethany? " + (name1.ToLower() == "bethany"));
+            //int wageValue = int.Parse(wage);
+
+            int wageValue;
+            if (int.TryParse(wage, out wageValue))
+                Console.WriteLine("Parsing success: " + wageValue);
+            else
+                Console.WriteLine("Parsing Failed");
+
+            string hireDateString = "12/12/2022";
+            DateTime hireDate = DateTime.Parse(hireDateString);
+            Console.WriteLine("Parsed date: " + hireDate);
         }
+
+                public static void UsingStringEquality()
+                {
+                    string name1 = "Bethany";
+                    string name2 = "BETHANY";
+
+                    Console.WriteLine("Are both names equal? " + (name1 == name2));
+                    Console.WriteLine("Is name equal to Bethany? " + (name1 == "Bethany"));
+                    Console.WriteLine("Is name equal to BETHANY? " + name2.Equals("BETHANY"));
+                    Console.WriteLine("Is lowercase name equal to bethany? " + (name1.ToLower() == "bethany"));
+                }
 
         public static void UsingEscapeCharcters()
         {
