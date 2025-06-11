@@ -10,7 +10,10 @@ Employee bethany = new Employee("Bethany", "Smith", "bethany@snowball.be", new D
 Console.WriteLine("Creating an employee");
 Console.WriteLine("----------------------\n");
 
-Employee george = new Employee("George", "Jones", "george@snowball.be", new DateTime(1984, 3, 28), 30, EmployeeType.Research);
+Employee george = new Employee("George", "Jones", "george@snowball.be", new DateTime(1984, 3, 28), null, EmployeeType.Research);
+
+Employee mysteryEmployee = null;
+mysteryEmployee.DisplayEmployeeDetails();
 
 #region First run Bethany
 
