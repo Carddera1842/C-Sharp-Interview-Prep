@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace BethanysPieShopHRM.Accounting
 {
-    internal class Account
-    {
-        private string accountNumber
-        {
-            get { return accountNumber; }
-            set
-            {
-                accountNumber = value;
-            }
-        }
-    }
+    //public record Account
+    //{
+    //    private string accountNumber
+    //    {
+    //        get { return accountNumber; }
+    //        set
+    //        {
+    //            accountNumber = value;
+    //        }
+    //    }
+    //}
+
+    public record Account(string AccountNumber);
 }
