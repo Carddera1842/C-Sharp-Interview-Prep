@@ -6,39 +6,53 @@ Console.WriteLine("----------------------\n");
 
 Employee bethany = new Employee("Bethany", "Smith", "bethany@snowball.be", new DateTime(1979, 1, 16), 25, EmployeeType.Manager);
 
-Employee george = new Employee("George", "Jones", "george@snowball.be", new DateTime(1984, 3, 28), 30, EmployeeType.Research);
 
 Console.WriteLine("Creating an employee");
 Console.WriteLine("----------------------\n");
 
+Employee george = new Employee("George", "Jones", "george@snowball.be", new DateTime(1984, 3, 28), 30, EmployeeType.Research);
+
+#region First run Bethany
+
+bethany.PerformWork(); 
+bethany.PerformWork(5); 
+bethany.PerformWork(); 
+bethany.PerformWork();
 bethany.DisplayEmployeeDetails();
 
-bethany.PerformWork();
+#endregion
+
+#region First run George
+
+george.PerformWork(10);
+george.PerformWork(); 
+george.PerformWork(); 
+george.PerformWork();
+george.DisplayEmployeeDetails();
+
+#endregion
+
+Employee.taxRate = 0.02
+
+
+#region Second run Bethany
+
 bethany.PerformWork();
 bethany.PerformWork(5);
 bethany.PerformWork();
+bethany.PerformWork();
+bethany.DisplayEmployeeDetails();
 
-bethany.firstName = "John";
-bethany.hourlyRate = 10;
+#endregion
 
-double recieveWageBethany = bethany.ReceiveWage(true);
-Console.WriteLine($"Wage paid (message from Program): {recieveWageBethany}");
+#region Second run George
 
-
+george.PerformWork(10);
+george.PerformWork();
+george.PerformWork();
+george.PerformWork();
 george.DisplayEmployeeDetails();
 
-george.PerformWork();
-george.PerformWork();
-george.PerformWork(3);
-george.PerformWork();
-george.PerformWork(8);
+#endregion
 
-double recieveWageGeorge = george.ReceiveWage(true);
-Console.WriteLine($"Wage paid (message from Program): {recieveWageGeorge}");
-
-WorkTask task;
-task.description = "Bake delicious pies";
-task.hours = 3;
-task.PerformWorkTask();
-
-BethanysPieShopHRM.Accounting.Customer customer = new BethanysPieShopHRM.Accounting.Customer();
+Employee.DisplayTaxRate();
