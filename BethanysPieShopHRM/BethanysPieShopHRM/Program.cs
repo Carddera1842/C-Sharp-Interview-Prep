@@ -1,6 +1,7 @@
 ﻿
 
 using BethanysPieShopHRM;
+using System.Text;
 
 //int a = 42;
 //int aCopy = a;
@@ -13,12 +14,53 @@ Console.WriteLine("----------------------\n");
 
 Employee bethany = new Employee("Bethany", "Smith", "bethany@snowball.be", new DateTime(1979, 1, 16), 25);
 
-bethany.PerformWork(25);
 
-int mimimumBonus = 100;
-int bonusTax;
-int recievedBonus = bethany.CalculateBonusAndBonusTax(mimimumBonus, out bonusTax);
-Console.WriteLine($"The minimum bonus is {mimimumBonus}, the bonus tax is {bonusTax} and {bethany.firstName} has recieved a bonus of {recievedBonus}");
+//bethany.PerformWork(25);
+
+string name = "bethany";
+string anotherName = name;
+name += " smith";
+
+Console.WriteLine("Name: " + name);
+Console.WriteLine("Another name: " + anotherName);
+
+string upperCaseName = name.ToUpper();
+
+Console.WriteLine("Name: " + name);
+Console.WriteLine("Uppercase name: " + upperCaseName);
+
+string indexes = string.Empty;
+
+for (int i = 0; i < 2500; i++)
+{
+    indexes += i.ToString();
+}
+
+string firstName = "Bethany";
+string lastName = "Smith";
+
+StringBuilder builder = new StringBuilder();
+
+builder.Append("Last name: ");
+builder.AppendLine(lastName);
+builder.Append("First name: ");
+builder.AppendLine(firstName);
+string result = builder.ToString();
+
+StringBuilder builder2 = new StringBuilder();
+
+for (int i = 0;i < 2500; i++)
+{
+    builder2.Append(i);
+    builder2.Append(" ");
+}
+
+string list = builder2.ToString();
+
+//int mimimumBonus = 100;
+//int bonusTax;
+//int recievedBonus = bethany.CalculateBonusAndBonusTax(mimimumBonus, out bonusTax);
+//Console.WriteLine($"The minimum bonus is {mimimumBonus}, the bonus tax is {bonusTax} and {bethany.firstName} has recieved a bonus of {recievedBonus}");
 
 
 //bethany.DisplayEmployeeDetails();
