@@ -65,15 +65,15 @@ int age = int.Parse(Console.ReadLine());
 //}
 //else isn't required!
 
-//Console.WriteLine("Choose the action you want to do: ");
-//Console.WriteLine("1. Add employee");
-//Console.WriteLine("2. Update employee");
-//Console.WriteLine("3. Delete employee");
-//Console.WriteLine("99. Exit application");
-//string selectedAction = Console.ReadLine();
+//do
+//{
+//    Console.WriteLine("Choose the action you want to do: ");
+//    Console.WriteLine("1. Add employee");
+//    Console.WriteLine("2. Update employee");
+//    Console.WriteLine("3. Delete employee");
+//    Console.WriteLine("99. Exit application");
+//    string selectedAction = Console.ReadLine();
 
-//while (selectedAction != "99") 
-//{ 
 //    switch (selectedAction)
 //    {
 //        case "1":
@@ -89,13 +89,8 @@ int age = int.Parse(Console.ReadLine());
 //            Console.WriteLine("Invalid input");
 //            break;
 //    }
-//    Console.WriteLine("Choose the action you want to do: ");
-//    Console.WriteLine("1. Add employee");
-//    Console.WriteLine("2. Update employee");
-//    Console.WriteLine("3. Delete employee");
-//    Console.WriteLine("99. Exit application");
-//    selectedAction = Console.ReadLine();
-//}
+
+//} while (selectedAction != "99");
 
 //Console.WriteLine("CLosing application");
 
@@ -119,16 +114,34 @@ int age = int.Parse(Console.ReadLine());
 
 //Console.WriteLine("Loop Finished!");
 
-int i = 0;
-int j = 0;
+//int i = 0;
+//int j = 0;
 
-while (i < 10)
+//while (i < 10)
+//{
+//    while (j < 10)
+//    {
+//        Console.WriteLine("i: " + i + "   j: " + j);
+//        j++;
+//    }
+//    j = 0;
+//    i++;
+//}
+
+for (int i = 0; i < 10;  i++)
 {
-    while (j < 10)
+    Console.WriteLine(i);
+}
+
+Console.WriteLine("Enter a value: ");
+int max = int.Parse(Console.ReadLine());
+
+for (int i = 0; i < max; i++)
+{
+    if (i == 5)
     {
-        Console.WriteLine("i: " + i + "   j: " + j);
-        j++;
+        Console.WriteLine("Bingo! " + i + " was found!");
+        break;
     }
-    j = 0;
-    i++;
+    Console.WriteLine(i);
 }
