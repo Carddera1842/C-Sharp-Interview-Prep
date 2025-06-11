@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BethanysPieShopHRM.Logic;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,6 +92,13 @@ namespace BethanysPieShopHRM.HR
         public static void UsingACustomType()
         {
             List<string> list = new List<string>();
+        }
+
+        public double CalculateWage()
+        {
+            WageCalculations wageCalculations = new WageCalculations();
+            double calculatedValue = wageCalculations.ComplexWageCalculation(wage, taxRate, 3, 40);
+            return calculatedValue;
         }
 
         public string ConvertToJson()
