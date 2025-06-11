@@ -14,5 +14,33 @@ bethany.PerformWork();
 bethany.PerformWork(5);
 bethany.PerformWork();
 
+bethany.firstName = "John";
+bethany.hourlyRate = 10;
+
+bethany.DisplayEmployeeDetails();
+
+bethany.PerformWork();
+bethany.PerformWork(12);
+bethany.PerformWork();
+bethany.PerformWork();
+
+string fn = bethany.firstName;
+
 double recieveWageBethany = bethany.ReceiveWage(true);
 Console.WriteLine($"Wage paid (message from Program): {recieveWageBethany}");
+
+Console.WriteLine("Creating an employee");
+Console.WriteLine("----------------------\n");
+
+Employee george = new Employee("George", "Jones", "george@snowball.be", new DateTime(1984, 3, 28), 30);
+
+george.DisplayEmployeeDetails();
+
+george.PerformWork();
+george.PerformWork();
+george.PerformWork(3);
+george.PerformWork();
+george.PerformWork(8);
+
+double recieveWageGeorge = george.ReceiveWage(true);
+Console.WriteLine($"Wage paid (message from Program): {recieveWageGeorge}");
