@@ -21,17 +21,20 @@ namespace BethanysPieShopHRM
 
         const int minimalHoursWorkedUnit = 1;
 
-        public Employee(string first, string last, string em, DateTime bd) : this(first, last, em, bd, 0)
+        public EmployeeType employeeType;
+
+        public Employee(string first, string last, string em, DateTime bd) : this(first, last, em, bd, 0, EmployeeType.StoreManager)
         {
 
         }
-        public Employee(string first, string last, string em, DateTime bd, double rate)
+        public Employee(string first, string last, string em, DateTime bd, double rate, EmployeeType emType)
         {
             firstName = first;
             lastName = last;
             email = em;
             birthday = bd;
             hourlyRate = rate;
+            employeeType = emType;
         }
         public void PerformWork()
         {
@@ -95,7 +98,15 @@ namespace BethanysPieShopHRM
         }
         public double ReceiveWage(bool resetHours = true)
         {
-            wage = numberOfHoursWorked * hourlyRate;
+           if (employeeType == EmployeeType.Manager)
+            {
+                Console.WriteLine($"An extra was added to the wage since {firstName} is a manager!");
+                wage = numberOfHoursWorked * hourlyRate * 1.25;
+            }
+            else 
+            {
+                wage = numberOfHoursWorked * hourlyRate;
+            }
 
             Console.WriteLine($"{firstName} {lastName} has recieved a wage of {wage} for {numberOfHoursWorked} hour(s) of work.");
 
