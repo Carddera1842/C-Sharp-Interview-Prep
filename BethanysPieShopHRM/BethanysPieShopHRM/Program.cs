@@ -37,3 +37,8 @@ george.PerformWork(8);
 
 double recieveWageGeorge = george.ReceiveWage(true);
 Console.WriteLine($"Wage paid (message from Program): {recieveWageGeorge}");
+
+WorkTask task;
+task.description = "Bake delicious pies";
+task.hours = 3;
+task.PerformWorkTask();
