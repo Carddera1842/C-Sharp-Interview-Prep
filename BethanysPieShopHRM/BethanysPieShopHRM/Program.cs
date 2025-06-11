@@ -1,21 +1,21 @@
 ﻿
 
+using BethanysPieShopHRM;
+
 int amount = 1234;
 int months = 12;
+int bonus = 1000;
 
-int yearlyWage = CalculateYearlyWage(amount, months);
+int yearlyWage = Utilities.CalculateYearlyWage(amount, months, bonus);
 
 Console.WriteLine($"Yearly wage: {yearlyWage}");
 
 Console.ReadLine();
 
-static int CalculateYearlyWage(int monthlyWage, int numberOfMOnthsWorked)
-{
-    //Console.WriteLine($"Yearly wage: {monthlyWage * numberOfMOnthsWorked}");
-    //return monthlyWage * numberOfMOnthsWorked;
+double amountDouble = 1500.0;
+double monthsDouble = 12;
+double bonusDouble = 1000;
 
-    if (numberOfMOnthsWorked == 12) //let's add a bonus month
-        return monthlyWage * (numberOfMOnthsWorked + 1);
+double yearlyWageDouble = Utilities.CalculateYearlyWage(amountDouble, monthsDouble, bonusDouble);
 
-    return monthlyWage * numberOfMOnthsWorked;
-}
+Console.ReadLine();
