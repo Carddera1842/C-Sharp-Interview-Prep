@@ -2,6 +2,6 @@
 
 using BethanysPieShopHRM;
 
-Utilities.UsingEscapeCharcters();
+Utilities.UsingStringEquality();
 
 Console.ReadLine();
