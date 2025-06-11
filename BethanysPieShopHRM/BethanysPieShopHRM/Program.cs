@@ -15,47 +15,22 @@ Employee george = new Employee("George", "Jones", "george@snowball.be", new Date
 Employee mysteryEmployee = null;
 mysteryEmployee.DisplayEmployeeDetails();
 
-#region First run Bethany
+List<Employee> employees = new List<Employee>();
+for (int i = 0; i < 10000000; i++)
+{
+    Employee randomEmployee = new Employee(Guid.NewGuid().ToString(),
+        Guid.NewGuid().ToString(), 
+        Guid.NewGuid().ToString(), 
+        new DateTime(1979, 1, 16), 
+        null, 
+        EmployeeType.StoreManager);
+    employees.Add(randomEmployee);
+}
+employees.Clear();
+employees = null;
 
-bethany.PerformWork(); 
-bethany.PerformWork(5); 
-bethany.PerformWork(); 
-bethany.PerformWork();
-bethany.DisplayEmployeeDetails();
+GC.Collect();
 
-#endregion
-
-#region First run George
-
-george.PerformWork(10);
-george.PerformWork(); 
-george.PerformWork(); 
-george.PerformWork();
-george.DisplayEmployeeDetails();
-
-#endregion
-
-Employee.taxRate = 0.02
+Console.ReadLine();
 
 
-#region Second run Bethany
-
-bethany.PerformWork();
-bethany.PerformWork(5);
-bethany.PerformWork();
-bethany.PerformWork();
-bethany.DisplayEmployeeDetails();
-
-#endregion
-
-#region Second run George
-
-george.PerformWork(10);
-george.PerformWork();
-george.PerformWork();
-george.PerformWork();
-george.DisplayEmployeeDetails();
-
-#endregion
-
-Employee.DisplayTaxRate();
