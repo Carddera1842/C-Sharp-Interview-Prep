@@ -1,6 +1,4 @@
-﻿
-
-using BethanysPieShopHRM;
+﻿using BethanysPieShopHRM.HR;
 using System.Text;
 
 Console.WriteLine("Creating an employee");
@@ -42,3 +40,5 @@ WorkTask task;
 task.description = "Bake delicious pies";
 task.hours = 3;
 task.PerformWorkTask();
+
+BethanysPieShopHRM.Accounting.Customer customer = new BethanysPieShopHRM.Accounting.Customer();
