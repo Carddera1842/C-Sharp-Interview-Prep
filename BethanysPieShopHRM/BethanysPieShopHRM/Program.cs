@@ -13,11 +13,13 @@ Console.WriteLine("----------------------\n");
 
 Employee bethany = new Employee("Bethany", "Smith", "bethany@snowball.be", new DateTime(1979, 1, 16), 25);
 
-Employee testEmployee = bethany;
-testEmployee.firstName = "Gill";
+bethany.PerformWork(25);
 
-testEmployee.DisplayEmployeeDetails();
-bethany.DisplayEmployeeDetails();
+int mimimumBonus = 100;
+int bonusTax = 0;
+int recievedBonus = bethany.CalculateBonusAndBonusTax(mimimumBonus, ref bonusTax);
+Console.WriteLine($"The minimum bonus is {mimimumBonus}, the bonus tax is {bonusTax} and {bethany.firstName} has recieved a bonus of {recievedBonus}");
+
 
 //bethany.DisplayEmployeeDetails();
 
