@@ -9,6 +9,19 @@ namespace BethanysPieShopHRM
     internal class Utilities
     {
 
+        public static void UsingExpressionBodiedSyntax()
+        {
+            int amount = 1234;
+            int months = 12;
+            int bonus = 500;
+
+            int yearlyWageForEmployee1 = CalculateYearlyWageExpressionBodied(amount, months, bonus);
+            Console.WriteLine($"Yearly wage for employee 1 (Bethany): {yearlyWageForEmployee1}");
+        }
+
+        public static int CalculateYearlyWageExpressionBodied(int monthlyWage, int numberOfMonthsWorked, int bonus) =>
+            monthlyWage * numberOfMonthsWorked + bonus;
+
         public static void UsingNamedArguments()
         {
             int amount = 1234;
