@@ -13,11 +13,30 @@ Console.WriteLine("----------------------\n");
 
 Employee george = new Employee("George", "Jones", "george@snowball.be", new DateTime(1984, 3, 28), null, EmployeeType.Research);
 
-Employee.DisplayTaxRate();
+int[] sampleArray1 = new int[5];
 
-double calculatedWage = bethany.CalculateWage();
-Console.WriteLine($"The estimated wage is {calculatedWage}.");
+int[] sampleArray2 = new int[] { 1, 2, 3, 4, 5 };
 
-Account account = new Account("123456789");
-account.AccountNumber = "987654321";
+//int[] sampleArray3 = new int[5] { 1, 2, 3, 4, 5, 6 };
 
+Console.WriteLine("How many employee IDs do you want to register?");
+
+int length = int.Parse(Console.ReadLine());
+
+int[] employeeIds = new int[length];
+
+var testId = employeeIds[0];
+//var errorId = employeeIds[length];
+
+for (int i = 0; i < length; i++)
+{
+    Console.WriteLine("Enter the employee ID: ");
+    int id = int.Parse(Console.ReadLine()); //let's assume here that the user will always enter an int value
+    employeeIds[i] = id;
+}
+
+
+for (int i = 0; i < employeeIds.Length; ++i)
+{
+    Console.WriteLine($"ID {i + 1}: \t{employeeIds[i]}");
+}
