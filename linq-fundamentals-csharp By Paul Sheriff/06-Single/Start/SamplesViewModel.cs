@@ -15,8 +15,12 @@
       Product value = null;
 
       // Write Query Syntax Here
+      // value = (from prod in products select prod)
+      //           .First(prod => prod.Color == "Red");
 
       // Test the exception handling
+      value = (from prod in products select prod)
+                .First(prod => prod.Color == "purple");
 
       return value;
     }
@@ -35,6 +39,7 @@
       Product value = null;
 
       // Write Method Syntax Here
+      value = products.First(p => p.Color == "Red");
       
       return value;
     }
