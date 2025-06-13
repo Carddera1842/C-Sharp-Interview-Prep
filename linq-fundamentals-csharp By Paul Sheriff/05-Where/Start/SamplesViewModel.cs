@@ -1,4 +1,6 @@
-﻿namespace LINQSamples
+﻿using System.ComponentModel.Design;
+
+namespace LINQSamples
 {
   public class SamplesViewModel : ViewModelBase
   {
@@ -46,7 +48,9 @@
       List<Product> list = new();
 
       // Write Query Syntax Here
-
+      list = (from prod in products
+              where prod.Name.StartsWith("L") && prod.StandardCost > 200
+              select prod).ToList();
 
       return list;
     }
@@ -62,7 +66,7 @@
       List<Product> list = new();
 
       // Write Method Syntax Here
-
+      list = products.Where(p => p.Name.StartsWith("L") && p.StandardCost > 200).ToList();
 
       return list;
     }
