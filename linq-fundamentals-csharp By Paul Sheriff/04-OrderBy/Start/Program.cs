@@ -4,7 +4,7 @@
 SamplesViewModel vm = new();
 
 // Call Sample Method
-var result = vm.OrderByDescendingQuery();
+var result = vm.OrderByTwoFieldsMethod();
 
 // Display Results
 vm.Display(result);
