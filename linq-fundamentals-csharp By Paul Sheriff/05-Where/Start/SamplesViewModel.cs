@@ -12,7 +12,9 @@
       List<Product> list = new();
 
       // Write Query Syntax Here
-
+      list = (from prod in products
+              where prod.Name.StartsWith("S")
+              select prod).ToList();
 
       return list;
     }
@@ -28,7 +30,7 @@
       List<Product> list = new();
 
       // Write Method Syntax Here
-
+      list = products.Where(p => p.Name.StartsWith("S")).ToList();
 
       return list;
     }
