@@ -6,7 +6,7 @@ SamplesViewModel vm = new();
 try
 {
   // Call Sample Method
-  var result = vm.FirstOrDefaultMethod();
+  var result = vm.LastMethod();
 
   // Display Results
   vm.Display(result);

@@ -104,9 +104,10 @@
       Product value = null;
 
       // Write Query Syntax Here
+      
      
       // Test the exception handling
-      
+
       return value;
     }
     #endregion
@@ -140,9 +141,13 @@
       Product value = null;
 
       // Write Query Syntax Here
-      
+      // value = (from prod in products select prod)
+      //           .Last(prod => prod.Color == "Red");
+
       // Test the exception handling
-      
+      value = (from prod in products select prod)
+                .Last(prod => prod.Color == "purple");
+
       return value;
     }
     #endregion
@@ -158,7 +163,7 @@
       Product value = null;
 
       // Write Method Syntax Here
-      
+      value = products.Last(prod => prod.Color == "Red");
 
       return value;
     }
@@ -175,9 +180,12 @@
       Product value = null;
 
       // Write Query Syntax Here
-     
+      value = (from prod in products select prod)
+                .Last(prod => prod.Color == "Red");
 
       // Test the exception handling
+      value = (from prod in products select prod)
+                .Last(prod => prod.Color == "Red");
      
       return value;
     }
