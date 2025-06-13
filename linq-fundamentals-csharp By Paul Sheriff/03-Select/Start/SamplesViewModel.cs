@@ -78,7 +78,13 @@ namespace LINQSamples
       List<Product> list = new();
 
       // Write Query Syntax Here
-      
+      list = (from prod in products
+              select new Product
+              {
+                ProductID = prod.ProductID,
+                Name = prod.Name,
+                Size = prod.Size
+              }).ToList();
 
       return list;
     }
@@ -94,7 +100,12 @@ namespace LINQSamples
       List<Product> list = new();
 
       // Write Method Syntax Here
-      
+      list = products.Select(prod => new Product
+      {
+        ProductID = prod.ProductID,
+        Name = prod.Name,
+        Size = prod.Size
+      }).ToList();
 
       return list;
     }
