@@ -125,6 +125,7 @@
       Product value = null;
 
       // Write Method Syntax Here
+      
 
       return value;
     }
@@ -180,13 +181,16 @@
       Product value = null;
 
       // Write Query Syntax Here
-      value = (from prod in products select prod)
-                .Last(prod => prod.Color == "Red");
+      // value = (from prod in products select prod)
+      //           .LastOrDefault(prod => prod.Color == "Red")
+
 
       // Test the exception handling
       value = (from prod in products select prod)
-                .Last(prod => prod.Color == "Red");
-     
+                .LastOrDefault(prod => prod.Color == "purple",
+                new Product { ProductID = -1, Name = "NOT FOUND"});
+
+
       return value;
     }
     #endregion
@@ -202,7 +206,7 @@
       Product value = null;
 
       // Write Method Syntax Here
-      
+      value = products.LastOrDefault(products => products.Color == "Red");
 
       return value;
     }
