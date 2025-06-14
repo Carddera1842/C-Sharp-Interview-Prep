@@ -185,7 +185,9 @@
       List<Product> list2 = ProductRepository.GetAll();
 
       // Write Query Syntax Here
-      
+      list = (from prod in list1 select prod)
+              .Concat(list2)
+              .OrderBy(p => p.Name).ToList();
 
       return list;
     }
@@ -205,7 +207,7 @@
       List<Product> list2 = ProductRepository.GetAll();
 
       // Write Method Syntax Here
-      
+      list = list1.Concat(list2).OrderBy(p => p.Name).ToList();
 
       return list;
     }
