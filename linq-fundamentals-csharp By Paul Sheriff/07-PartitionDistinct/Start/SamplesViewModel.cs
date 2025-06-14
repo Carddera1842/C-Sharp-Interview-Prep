@@ -188,9 +188,9 @@
       List<string> list = new();
 
       // Write Query Syntax Here
-      // list =  (from prod in products
-      //         orderby prod.Name select prod)
-      //         .ToList();
+      list =  (from prod in products
+              select prod.Color)
+              .Distinct().OrderBy(c => c).ToList();
 
       return list;
     }
@@ -207,7 +207,7 @@
       List<string> list = new();
 
       // Write Method Syntax Here
-      
+      list = products.Select(p => p.Color).Distinct().OrderBy(c => c).ToList();
 
       return list;
     }
