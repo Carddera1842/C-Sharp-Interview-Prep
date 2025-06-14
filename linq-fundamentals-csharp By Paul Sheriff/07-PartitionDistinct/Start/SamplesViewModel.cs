@@ -221,8 +221,8 @@
 
       // Write Query Syntax Here
       list =  (from prod in products
-              orderby prod.Name select prod)
-              .Take(5).ToList();
+              select prod)
+              .DistinctBy(p => p.Color).OrderBy(p => p.Color).ToList();
 
       return list;
     }
@@ -235,7 +235,8 @@
       List<Product> list = new();
 
       // Write Method Syntax Here
-
+      list = products.DistinctBy(prod => prod.Color)
+              .OrderBy(p => p.Color).ToList();
 
       return list;
     }
