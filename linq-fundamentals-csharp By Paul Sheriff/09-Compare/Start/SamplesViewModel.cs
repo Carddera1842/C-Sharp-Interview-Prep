@@ -514,7 +514,9 @@ namespace LINQSamples
       List<string> colors = new() { "Red", "Black" };
 
       // Write Query Syntax Here
-      
+      list = (from prod in products
+              select prod)
+              .IntersectBy(colors, p => p.Color).ToList();
 
       return list;
     }
@@ -533,7 +535,7 @@ namespace LINQSamples
       List<string> colors = new() { "Red", "Black" };
 
       // Write Method Syntax Here
-      
+       list = products.IntersectBy(colors, p => p.Color).ToList();
 
       return list;
     }
@@ -551,7 +553,10 @@ namespace LINQSamples
       List<SalesOrder> sales = SalesOrderRepository.GetAll();
 
       // Write Query Syntax Here
-      
+      list = (from prod in products
+              select prod)
+              .IntersectBy<Product, int>(from sale in sales select sale.ProductID, prod => prod.ProductID).ToList();
+
 
       return list;
     }
@@ -569,6 +574,7 @@ namespace LINQSamples
       List<SalesOrder> sales = SalesOrderRepository.GetAll();
 
       // Write Method Syntax Here
+      list = products.IntersectBy<Product, int>(sales.Select(s => s.ProductID), prod => prod.ProductID).ToList();
 
 
       return list;
