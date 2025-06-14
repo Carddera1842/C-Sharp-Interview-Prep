@@ -13,6 +13,9 @@
       List<Product> products = ProductRepository.GetAll();
 
       // Write Query Syntax Here
+      list = (from prod in products
+              orderby prod.Size
+              group prod by prod.Size).ToList();
 
       return list;
     }
@@ -29,7 +32,8 @@
       List<Product> products = ProductRepository.GetAll();
 
       // Write Method Syntax Here
-      
+      list = products.OrderBy(prod => prod.Size)
+              .GroupBy(prod => prod.Size).ToList();
 
       return list;
     }
@@ -46,7 +50,10 @@
       List<Product> products = ProductRepository.GetAll();
 
       // Write Query Syntax Here
-      
+      list = (from prod in products
+              group prod by prod.Size into sizes
+              orderby sizes.Key
+              select sizes).ToList();
 
       return list;
     }
@@ -63,7 +70,9 @@
       List<Product> products = ProductRepository.GetAll();
 
       // Write Query Syntax Here
-      
+      list = products.GroupBy(prod => prod.Size)
+                     .OrderBy(sizes => sizes.Key)
+                     .Select(sizes => sizes).ToList();
 
       return list;
     }
@@ -80,7 +89,10 @@
       List<Product> products = ProductRepository.GetAll();
 
       // Write Method Syntax Here
-     
+      list = (from prod in products
+              group prod by prod.Size into sizes
+              orderby sizes.Key
+              select sizes).ToList();
 
       return list;
     }
@@ -98,7 +110,11 @@
       List<Product> products = ProductRepository.GetAll();
 
       // Write Query Syntax Here
-      
+       list = (from prod in products
+              orderby prod.Size
+              group prod by prod.Size into sizes
+              where sizes.Count() > 2
+              select sizes).ToList();
 
       return list;
     }
@@ -116,7 +132,11 @@
       List<Product> products = ProductRepository.GetAll();
 
       // Write Method Syntax Here
-      
+      list = products.OrderBy(p => p.Size)
+                     .GroupBy(prod => prod.Size)
+                     .Where(sizes => sizes.Count() > 2)
+                     .Select(sizes => sizes).ToList();
+
 
       return list;
     }
@@ -135,7 +155,18 @@
       List<SalesOrder> sales = SalesOrderRepository.GetAll();
 
       // Write Query Syntax Here
-      
+      list = (from sale in sales
+              orderby sale.SalesOrderID
+              group sale by sale.SalesOrderID into newSales
+              select new SaleProducts
+              {
+                SalesOrderID = newSales.Key,
+                Products = (from prod in products
+                            orderby prod.ProductID
+                            join sale in sales on prod.ProductID equals sale.ProductID
+                            where sale.SalesOrderID == newSales.Key
+                            select prod).ToList()
+              }).ToList();
 
       return list;
     }
@@ -154,7 +185,16 @@
       List<SalesOrder> sales = SalesOrderRepository.GetAll();
 
       // Write Method Syntax Here
-      
+       list = sales.OrderBy(s => s.SalesOrderID)
+                  .GroupBy(sale => sale.SalesOrderID)
+                  .Select(newSales => new SaleProducts
+                  {
+                    SalesOrderID = newSales.Key,
+                    Products = products.OrderBy(p => p.ProductID)
+                      .Join(newSales, prod => prod.ProductID,
+                            sale => sale.ProductID,
+                            (prod, sale) => prod).ToList()
+                  }).ToList();
 
       return list;
     }
@@ -172,7 +212,11 @@
       List<Product> products = ProductRepository.GetAll();
 
       // Write Query Syntax Here
-      
+      list = (from prod in products
+              orderby prod.Color
+              group prod by prod.Color into groupedColors
+              select groupedColors.FirstOrDefault().Color).ToList();
+
       return list;
     }
     #endregion
@@ -189,7 +233,9 @@
       List<Product> products = ProductRepository.GetAll();
 
       // Write Method Syntax Here
-      
+      list = products.GroupBy(p => p.Color)
+                      .Select(groupedColors => groupedColors.FirstOrDefault().Color)
+                      .OrderBy(c => c).ToList();
 
       return list;
     }
