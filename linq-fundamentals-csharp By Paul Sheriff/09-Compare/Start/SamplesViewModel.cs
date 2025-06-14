@@ -69,7 +69,8 @@ namespace LINQSamples
       // list2 = list1;
 
       // Write Query Syntax Here
-      
+      value = (from prod in list1 select prod)
+                .SequenceEqual(list2);
 
       return value;
     }
@@ -99,7 +100,7 @@ namespace LINQSamples
       // list2 = list1;
 
       // Write Method Syntax Here
-      
+      value = list1.SequenceEqual(list2)
 
       return value;
     }
@@ -120,9 +121,11 @@ namespace LINQSamples
 
       // Remove an element from 'list1' to make the collections different
       //list1.RemoveAt(0);
+      list1.Remove(0);
 
       // Write Query Syntax Here
-      
+      value = (from prod in list1 select prod)
+                .SequenceEqual(list2, pc);
 
       return value;
     }
@@ -145,7 +148,7 @@ namespace LINQSamples
       //list1.RemoveAt(0);
 
       // Write Method Syntax Here
-      
+      value = list1.SequenceEqual(list2, pc);
 
       return value;
     }
