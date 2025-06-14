@@ -4,7 +4,7 @@
 SamplesViewModel vm = new();
 
 // Call Sample Method
-var result = vm. SequenceEqualUsingComparerQuery();
+var result = vm.ExceptByProductSalesMethod();
 
 // Display Results
 vm.Display(result);

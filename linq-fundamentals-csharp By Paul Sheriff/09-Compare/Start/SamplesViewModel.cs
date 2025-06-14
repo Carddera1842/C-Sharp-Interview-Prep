@@ -100,7 +100,7 @@ namespace LINQSamples
       // list2 = list1;
 
       // Write Method Syntax Here
-      value = list1.SequenceEqual(list2)
+      value = list1.SequenceEqual(list2);
 
       return value;
     }
@@ -121,7 +121,7 @@ namespace LINQSamples
 
       // Remove an element from 'list1' to make the collections different
       //list1.RemoveAt(0);
-      list1.Remove(0);
+      list1.RemoveAt(0);
 
       // Write Query Syntax Here
       value = (from prod in list1 select prod)
@@ -207,7 +207,9 @@ namespace LINQSamples
       List<SalesOrder> sales = SalesOrderRepository.GetAll();
 
       // Write Query Syntax Here
-      
+      list = (from prod in products
+              select prod.ProductID)
+              .Except(from sale in sales select sale.ProductID).ToList();
 
       return list;
     }
@@ -224,7 +226,8 @@ namespace LINQSamples
       List<SalesOrder> sales = SalesOrderRepository.GetAll();
 
       // Write Method Syntax Here
-
+       list = products.Select(prod => prod.ProductID)
+              .Except(sales.Select(sale => sale.ProductID)).ToList();
 
       return list;
     }
