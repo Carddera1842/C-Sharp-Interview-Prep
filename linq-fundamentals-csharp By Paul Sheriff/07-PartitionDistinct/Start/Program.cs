@@ -4,7 +4,7 @@
 SamplesViewModel vm = new();
 
 // Call Sample Method
-var result = vm.TakeWhileMethod();
+var result = vm.SkipWhileMethod();
 
 // Display Results
 vm.Display(result);
