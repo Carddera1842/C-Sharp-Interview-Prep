@@ -82,7 +82,10 @@
       List<Product> list = new();
 
       // Write Query Syntax Here
-      
+      list = (from prod in products
+            orderby prod.Name
+            select prod).TakeWhile(products => products.Name
+            .StartsWith("A")).ToList();
 
       return list;
     }
@@ -98,7 +101,9 @@
       List<Product> list = new();
 
       // Write Method Syntax Here
-     
+      list = products.OrderBy(prod => prod.Name)
+              .TakeWhile(prod => prod.Name.StartsWith("A"))
+              .ToList();
 
       return list;
     }

@@ -4,7 +4,7 @@
 SamplesViewModel vm = new();
 
 // Call Sample Method
-var result = vm.TakeWhileQuery();
+var result = vm.TakeWhileMethod();
 
 // Display Results
 vm.Display(result);
