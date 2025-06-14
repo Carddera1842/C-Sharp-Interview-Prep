@@ -251,7 +251,9 @@ namespace LINQSamples
       list2.RemoveAll(prod => prod.Color == "Black");
 
       // Write Query Syntax Here
-      
+      list = (from prod in list1
+              select prod)
+              .Except(list2, pc).ToList();
 
       return list;
     }
@@ -275,7 +277,7 @@ namespace LINQSamples
       list2.RemoveAll(prod => prod.Color == "Black");
 
       // Write Method Syntax Here
-      
+      list = list1.Except(list2, pc).ToList();
 
       return list;
     }
