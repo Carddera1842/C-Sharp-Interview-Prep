@@ -340,7 +340,12 @@ namespace LINQSamples
       List<SalesOrder> sales = SalesOrderRepository.GetAll();
 
       // Write Query Syntax Here
-      
+      list = (from prod in products
+              select prod)
+              .ExceptBy<Product, int>(
+                from sale in sales select sale.ProductID, 
+                prod => prod.ProductID).ToList();
+
 
       return list;
     }
@@ -358,6 +363,8 @@ namespace LINQSamples
       List<SalesOrder> sales = SalesOrderRepository.GetAll();
 
       // Write Method Syntax Here
+      list = products.ExceptBy<Product, int>(sales.Select(s => s.ProductID), prod => prod.ProductID).ToList();
+
 
 
       return list;
