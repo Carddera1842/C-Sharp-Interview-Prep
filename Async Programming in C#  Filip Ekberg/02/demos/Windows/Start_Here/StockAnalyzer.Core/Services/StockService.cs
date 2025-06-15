@@ -102,7 +102,7 @@ public class MockStockService : IStockService
 
         };
 
-        var task = stocks.Where(stock => stock.Identifier == stockIdentifier));
+        var task = stocks.Where(stock => stock.Identifier == stockIdentifier);
         return task;
     }
 }
