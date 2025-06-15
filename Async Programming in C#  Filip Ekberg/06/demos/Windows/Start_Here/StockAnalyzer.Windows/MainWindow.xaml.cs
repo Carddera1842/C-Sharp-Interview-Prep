@@ -94,27 +94,28 @@ public partial class MainWindow : Window
         return data.Take(5);
     }
 
-    private static Task<List<string>> SearchForStocks(
+    private static Task<IEnumerable<StockPrice>> SearchForStocks(
         CancellationToken cancellationToken    
     )
     {
-        return Task.Run(async () =>
+        var tcs = new TaskCompletionSource<IEnumerable<StockPrice>>();  
+
+        ThreadPool.QueueUserWorkItem(_ =>
         {
-            using var stream = new StreamReader(File.OpenRead("StockPrices_Small.csv"));
+            var lines = File.ReadAllLines("StockPrices_Small.csv");
+            var prices = new List<StockPrice>();
 
-            var lines = new List<string>();
-
-            while (await stream.ReadLineAsync() is string line)
+            foreach (var line in lines.Skip(1))
             {
-                if(cancellationToken.IsCancellationRequested)
-                {
-                    break;
-                }
-                lines.Add(line);
+                prices.Add(StockPrice.FromCSV(line));
             }
 
-            return lines;
-        }, cancellationToken);
+            //TODO: Communicate the reslut of 'prices' ?
+            tcs.SetResult(prices);
+        });
+        //TODO: retrn a Task<IEnumerablt<StockPrice>> ?
+
+        return tcs.Task;
     }
 
     private async Task GetStocks()
