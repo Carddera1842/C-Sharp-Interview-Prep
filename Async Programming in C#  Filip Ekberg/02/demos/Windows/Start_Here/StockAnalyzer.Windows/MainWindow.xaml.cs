@@ -46,6 +46,15 @@ public partial class MainWindow : Window
                 return lines;
             });
 
+            loadLinesTask.ContinueWith(t =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    Notes.Text = t.Exception?.InnerException?.Message;
+                });
+
+            }, TaskContinuationOptions.OnlyOnFaulted);
+
             var processStocksTask = loadLinesTask.ContinueWith((completedTask) =>
             {
                 var lines = completedTask.Result;
@@ -63,8 +72,10 @@ public partial class MainWindow : Window
                 {
                     Stocks.ItemsSource = data.Where(sp => sp.Identifier == StockIdentifier.Text);
                 });
-
-            });
+                
+            },
+            TaskContinuationOptions.OnlyOnRanToCompletion
+            );
 
             processStocksTask.ContinueWith(_ =>
             {
