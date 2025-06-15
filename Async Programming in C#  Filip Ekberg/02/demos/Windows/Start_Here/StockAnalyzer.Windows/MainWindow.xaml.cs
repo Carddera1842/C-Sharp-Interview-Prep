@@ -27,13 +27,21 @@ public partial class MainWindow : Window
 
     private async void Search_Click(object sender, RoutedEventArgs e)
     {
-        BeforeLoadingStockData();
+        try
+        {
+            BeforeLoadingStockData();
 
-        var getStocksTask = GetStocks();
-
-        await getStocksTask;
+            await GetStocks();
+        }
+        catch (Exception ex)
+        {
+            Notes.Text = ex.Message;
+        }
+        finally
+        {
+            AfterLoadingStockData();
+        }
         
-        AfterLoadingStockData();
     }
 
 
