@@ -57,14 +57,34 @@ public partial class MainWindow : Window
 
             BeforeLoadingStockData();
 
+            var identifiers = StockIdentifier.Text.Split(',', ' ');
+
             var service = new StockService();
 
-            var data = await service.GetStockPricesFor(
-                StockIdentifier.Text,
-                cancellationTokenSource.Token
-            );
+            var loadingTasks = new List<Task<IEnumerable<StockPrice>>>();
 
-            Stocks.ItemsSource = data;
+            foreach(var identifier in identifiers)
+            {
+                var loadTask = service.GetStockPricesFor(identifier, cancellationTokenSource.Token);
+                loadingTasks.Add(loadTask);
+            }
+
+            var timeout = Task.Delay(120000);
+
+            var allStocksLoadingTask = Task.WhenAll(loadingTasks);
+
+            var completedTask = await Task.WhenAny(timeout, allStocksLoadingTask);
+
+            if (completedTask == timeout)
+            {
+
+                cancellationTokenSource.Cancel();
+                throw new OperationCanceledException("Timeout!");
+            }
+
+            Stocks.ItemsSource = allStocksLoadingTask
+                .Result
+                .SelectMany(x => x);
 
         }
         catch (Exception ex)
