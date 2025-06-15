@@ -42,6 +42,33 @@ public partial class MainWindow : Window
                 { "AMAZ", Generate("AMAZ") }
             };
 
+        var bag = new ConcurrentBag<StockCalculation>();
+
+        Parallel.Invoke(
+            () => 
+            { 
+                var msft = Calculate(stocks["MSFT"]); 
+                bag.Add(msft);
+            },
+            () => 
+            { 
+                var googl = Calculate(stocks["GOOGL"]); 
+                bag.Add(googl);
+            },
+            () => 
+            { 
+                var aapl = Calculate(stocks["AAPL"]); 
+                bag.Add(aapl);
+            },
+            () => 
+            { 
+                var cat = Calculate(stocks["CAT"]); 
+                bag.Add(cat);
+            }
+            );
+
+        Stocks.ItemsSource = bag;
+
         AfterLoadingStockData();
     }
 
