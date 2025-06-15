@@ -30,7 +30,7 @@ public partial class MainWindow : Window
 
 
 
-    private async Task Search_Click(object sender, RoutedEventArgs e)
+    private async void Search_Click(object sender, RoutedEventArgs e)
     {
         if (cancellationTokenSource is not null) 
         {
@@ -59,7 +59,7 @@ public partial class MainWindow : Window
 
             var identifiers = StockIdentifier.Text.Split(',', ' ');
 
-            var service = new StockService();
+            var service = new MockStockService();
 
             var loadingTasks = new List<Task<IEnumerable<StockPrice>>>();
 
