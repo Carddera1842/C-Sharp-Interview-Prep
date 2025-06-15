@@ -38,25 +38,14 @@ public partial class MainWindow : Window
         try
         {
             BeforeLoadingStockData();
+            var progress = new Progress<IEnumerable<StockPrice>>(); 
 
-            var identifiers = StockIdentifier.Text.Split(',', ' ');
-
-            var data = new ObservableCollection<StockPrice>();
-
-            Stocks.ItemsSource = data;
-
-            var service = new StockDiskStreamService();
-
-            var enumerator = service.GetAllStockPrices();
-
-            await foreach (var price in enumerator
-                .WithCancellation(CancellationToken.None))
+            progress.ProgressChanged += (_, stocks) =>
             {
-                if (identifiers.Contains(price.Identifier))
-                {
-                    data.Add(price);
-                }
-            }
+                StockProgress.Value += 1;
+                Notes.Text += $"Loaded {stocks.Count()} for {stocks.First().Identifier}{Environment.NewLine}";
+            };
+            await SearchForStocks(progress);
         }
         catch(Exception ex)
         {
@@ -66,9 +55,10 @@ public partial class MainWindow : Window
         {
             AfterLoadingStockData();
         }
+        
     }
 
-    private async Task SearchForStocks()
+    private async Task SearchForStocks(IProgress<IEnumerable<StockPrice>> progress)
     {
         var service = new StockService();
         var loadingTasks = new List<Task<IEnumerable<StockPrice>>>();
@@ -77,6 +67,13 @@ public partial class MainWindow : Window
         {
             var loadTask = service.GetStockPricesFor(identifier,
                 CancellationToken.None);
+
+            loadTask = loadTask.ContinueWith(completedTask =>
+            {
+                progress?.Report(completedTask.Result);
+
+                return completedTask.Result;
+            });
 
             loadingTasks.Add(loadTask);
         }
@@ -154,7 +151,9 @@ public partial class MainWindow : Window
     {
         stopwatch.Restart();
         StockProgress.Visibility = Visibility.Visible;
-        StockProgress.IsIndeterminate = true;
+        StockProgress.IsIndeterminate = false;
+        StockProgress.Value = 0;
+        StockProgress.Maximum = StockIdentifier.Text.Split(',', ' ').Length;
     }
 
     private void AfterLoadingStockData()
