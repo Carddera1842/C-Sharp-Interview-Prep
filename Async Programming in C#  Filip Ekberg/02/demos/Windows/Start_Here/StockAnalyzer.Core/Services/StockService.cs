@@ -46,10 +46,27 @@ public class StockService : IStockService
 
 public class MockStockService : IStockService
 {
-    public Task<IEnumerable<StockPrice>>
+    private int i;
+    private static string API_URL = "https://ps-async.fekberg.com/api/stocks";
+
+    public async Task<IEnumerable<StockPrice>>
         GetStockPricesFor(string stockIdentifier, 
         CancellationToken cancellationToken)
     {
+        // Simulate that each time this method is called
+        //it takes a little bit longer.
+        //
+        //DO NOT DO THIS IN PRODUCTION...
+        await Task.Delay((i++) * 1000);
+
+        using (var client = new HttpClient())
+        {
+            var result = await client.GetAsync($"{API_URL}/{stockIdentifier}",
+                cancellationToken);
+
+            result.EnsureSuccessStatusCode();
+        }
+
         var stocks = new List<StockPrice>
         {
             new()
@@ -85,7 +102,7 @@ public class MockStockService : IStockService
 
         };
 
-        var task = Task.FromResult(stocks.Where(stock => stock.Identifier == stockIdentifier));
+        var task = stocks.Where(stock => stock.Identifier == stockIdentifier));
         return task;
     }
 }
