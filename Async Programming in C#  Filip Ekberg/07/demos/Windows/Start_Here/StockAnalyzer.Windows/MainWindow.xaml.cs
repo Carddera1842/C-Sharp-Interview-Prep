@@ -44,28 +44,34 @@ public partial class MainWindow : Window
 
         var bag = new ConcurrentBag<StockCalculation>();
 
-        Parallel.Invoke(
-            () => 
-            { 
-                var msft = Calculate(stocks["MSFT"]); 
-                bag.Add(msft);
-            },
-            () => 
-            { 
-                var googl = Calculate(stocks["GOOGL"]); 
-                bag.Add(googl);
-            },
-            () => 
-            { 
-                var aapl = Calculate(stocks["AAPL"]); 
-                bag.Add(aapl);
-            },
-            () => 
-            { 
-                var cat = Calculate(stocks["CAT"]); 
-                bag.Add(cat);
-            }
-            );
+        try
+        {
+            var parallelLoopResult 
+                = Parallel.ForEach(stocks, 
+                new ParallelOptions { MaxDegreeOfParallelism = 1 }, 
+                (element, state) =>
+                    {
+                        if (element.Key == "MSFT" || state.ShouldExitCurrentIteration)
+                        {
+                            state.Break();
+
+                            return;
+                        }
+                        else
+                        {
+                            var result = Calculate(element.Value);
+                            bag.Add(result);
+                        }
+                            
+                    });
+
+
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+        
 
         Stocks.ItemsSource = bag;
 
