@@ -14,17 +14,27 @@ internal class BinaryFileProcessor
 
     public void Process()
     {
-        byte[] data = File.ReadAllBytes(InputFilePath);
+        var openToReadFrom = new FileStreamOptions { Mode = FileMode.Open };
+        using FileStream inputFileStream = File.Open(InputFilePath, openToReadFrom);
+        using var binaryReader = new BinaryReader(inputFileStream); 
 
-        byte largest = data.Max();
+        using FileStream outputFileStream = File.Create(OutputFilePath);
+        using var binaryWriter = new BinaryWriter(outputFileStream);
 
-        byte[] newData = new byte[data.Length + 1];
+        byte largestByte = 0;
 
-        Array.Copy(data, newData, data.Length);
+        while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
+        {
+            byte currentByte = binaryReader.ReadByte();
 
-        newData[^1] = largest;
+            binaryWriter.Write(currentByte);
 
-        File.WriteAllBytes(OutputFilePath, newData);
+            if (currentByte > largestByte)
+            {
+                largestByte = currentByte;
+            }
+        }
+       binaryWriter.Write(largestByte);
     }
 
 

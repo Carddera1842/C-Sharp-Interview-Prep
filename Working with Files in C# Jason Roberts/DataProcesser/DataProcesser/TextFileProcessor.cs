@@ -13,23 +13,30 @@ internal class TextFileProcessor
 
     public void Process()
     {
-        //Using read all text
-        //string originalText = File.ReadAllText(InputFilePath);
-        //string processedText = originalText.ToUpperInvariant();
-        //File.WriteAllText(OutputFilePath, processedText);
+        using StreamReader inputStreamReader = File.OpenText(InputFilePath);
+        using var outputStreamWriter = new StreamWriter(OutputFilePath);
 
-        //Using read all lines
-        try
+        var currentLineNumber = 1;
+        while (!inputStreamReader.EndOfStream)
         {
-            string[] lines = File.ReadAllLines(InputFilePath);
-            lines[1] = lines[1].ToUpperInvariant(); //Assumes there is a line 2 in the file
-            File.WriteAllLines(OutputFilePath, lines);
-        }
-        catch (IOException ex)
-        {
-            // Log / retry
-            Console.WriteLine(ex);
-            throw;
+            string inputLine = inputStreamReader.ReadLine()!;
+
+            if (currentLineNumber == 2)
+            {
+                inputLine = inputLine.ToUpperInvariant();
+            }
+            
+            bool isLastLine = inputStreamReader.EndOfStream;
+
+            if (isLastLine)
+            {
+                outputStreamWriter.Write(inputLine);
+            }
+            else
+            {
+                outputStreamWriter.WriteLine(inputLine);
+            }
+            currentLineNumber++;
         }
     }
 
