@@ -35,4 +35,8 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\..\04\demos\Start_Here\WarehouseManagementSystem\WManagementSystem.infrastructure\WManagementSystem.infrastructure.csproj" />
+	</ItemGroup>
+
 </Project>

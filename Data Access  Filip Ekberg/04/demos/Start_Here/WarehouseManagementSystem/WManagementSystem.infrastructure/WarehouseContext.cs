@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WarehouseManagementSystem.Domain;
 
 namespace WarehouseManagementSystem
 {

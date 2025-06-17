@@ -1,20 +1,21 @@
-﻿using System.Data.SqlClient;
+﻿using Microsoft.Data.Sqlite;
+using System.Data.SqlClient;
 
 /// TODO
 /// CHANGE AttachDbFilename TO POINT TO THE DATABASE FILE (MDF)
 
-using SqlConnection connection 
-    = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Code\WarehouseManagement.mdf;Integrated Security=True;Connect Timeout=30");
+using SqliteConnection connection
+    = new SqliteConnection(@"Data Source=C:\Users\admin\Desktop\C-Sharp-Interview-Prep\Data Access  Filip Ekberg\02\demos\Windows\Start_Here\WarehouseManagementSystem\WarehouseManagementSystem\warehouse.db");
 
-using SqlCommand command
-    = new SqlCommand("SELECT * FROM [Orders]", connection);
+using SqliteCommand command
+    = new SqliteCommand("SELECT * FROM [Orders]", connection);
 
 connection.Open();
 
-using SqlDataReader reader =
+using SqliteDataReader reader =
     command.ExecuteReader();
 
-while(reader.Read())
+while (reader.Read())
 {
     Console.WriteLine(reader["Id"]);
 }

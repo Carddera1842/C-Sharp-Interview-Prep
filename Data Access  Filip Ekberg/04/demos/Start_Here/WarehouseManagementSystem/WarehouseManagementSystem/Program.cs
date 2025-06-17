@@ -59,12 +59,12 @@ Console.ReadLine();
 
 //using var reader = command.ExecuteReader();
 
-//if(reader.HasRows == false)
+//if (reader.HasRows == false)
 //{
 //    return;
 //}
 
-//while(reader.Read())
+//while (reader.Read())
 //{
 //    var orderId = reader["Id"];
 //    var customer = reader["Name"];
@@ -72,8 +72,6 @@ Console.ReadLine();
 //    Console.WriteLine(orderId);
 //    Console.WriteLine(customer);
 //}
-
-
 
 //Console.ReadLine();
 

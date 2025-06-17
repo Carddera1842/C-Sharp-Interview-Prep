@@ -1,22 +1,33 @@
-﻿using Microsoft.Data.Sqlite;
-using System.Data.SqlClient;
+﻿using Microsoft.EntityFrameworkCore;
+using Warehouse.Data.SQLite;
+using WarehouseManagementSystem;
+using LineItem = Warehouse.Data.SQLite.LineItem;
+using Customer = Warehouse.Data.SQLite.Customer;
+using Order = Warehouse.Data.SQLite.Order;
 
-/// TODO
-/// CHANGE AttachDbFilename TO POINT TO THE DATABASE FILE (MDF)
-using SqliteConnection connection
-    = new SqliteConnection(@"data source=C:\Users\admin\Desktop\C-Sharp-Interview-Prep\Data Access  Filip Ekberg\02\demos\Windows\Start_Here\WarehouseManagementSystem\WarehouseManagementSystem\warehouse.db");
+using WarehouseManagementSystem.Models;
 
-using SqliteCommand command
-    = new SqliteCommand("SELECT * FROM [Orders]", connection);
 
-connection.Open();
+using var context = new WarehouseSQLiteContext();
 
-using SqliteDataReader reader =
-    command.ExecuteReader();
+var firstCustomer = context.Customers.First();
 
-while (reader.Read())
+Order newOrder = new()
 {
-    Console.WriteLine(reader["Id"]);
-}
+    Id = Guid.NewGuid(),
+    LineItems = new LineItem[]
+    {
+        new()
+        {
+            Id = Guid.NewGuid(),
+            Item = context.Items.First(),
+            Quantity = 1
+        }
+    },
+    ShippingProvider = context.ShippingProviders.First(),
+    Customer = firstCustomer
+};
 
-Console.ReadLine();
+context.Orders.Add(newOrder);
+context.SaveChanges();
+Console.WriteLine("Order Added!");
