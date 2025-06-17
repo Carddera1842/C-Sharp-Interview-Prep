@@ -97,6 +97,11 @@ internal class FileProcesser
                 binaryProcessor.Process(); 
                 break;
 
+            case ".csv":
+                var csvProcessor = new CsvFileProcessor(inProgressFilePath, completedFilePath);
+                csvProcessor.Process();
+                break;
+
             default:
                 WriteLine($"{extention} is an unsupported file type.");
                 break;
