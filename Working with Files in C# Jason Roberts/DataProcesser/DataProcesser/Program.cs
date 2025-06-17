@@ -1,67 +1,114 @@
 ﻿using DataProcesser;
+using System.Runtime.Caching;
 using static System.Console;
 
 WriteLine("Parsing command line options");
 
-//Command line validation ommited for brevity
+var directoryToWatch = args[0];
 
-var command = args[0];
+// Command line validation ommitted fro brevity
 
-if (command == "--file")
+if (!Directory.Exists(directoryToWatch))
 {
-    var filePath = args[1];
-
-    //Check if path is absolute
-    if (!Path.IsPathFullyQualified(filePath))
-    {
-        WriteLine($"ERROR: path '{filePath}' must be fully qualified");
-        ReadLine();
-        return;
-    }
-
-    WriteLine($"Single file {filePath} selected");
-    ProcessSingleFile( filePath );
-}
-else if (command == "--dir")
-{
-    var directoryPath = args[1];
-    var fileType = args[2];
-    WriteLine($"Directory {directoryPath} selected for {fileType} files");
-    ProcessDirectory(directoryPath, fileType);
-}
-else
-{
-    WriteLine("Invalid command line options");
+    WriteLine($"ERROR: {directoryToWatch} does not exist");
+    WriteLine("Press enter to quit");
+    ReadLine();
+    return;
 }
 
-WriteLine("Press enter to quit");
+ProcessExistingFiles(directoryToWatch);
+
+WriteLine($"Watching directory {directoryToWatch} for changes");
+using var inputFileWatcher 
+    = new FileSystemWatcher(directoryToWatch);
+
+inputFileWatcher.IncludeSubdirectories = false;
+inputFileWatcher.InternalBufferSize = 32_768; // 32 KB
+inputFileWatcher.Filter = "*.*";
+inputFileWatcher.NotifyFilter
+    = NotifyFilters.FileName | NotifyFilters.LastWrite;
+
+inputFileWatcher.Created += FileCreated;
+inputFileWatcher.Changed += FileChanged;
+inputFileWatcher.Deleted += FileDeleted;
+inputFileWatcher.Renamed += FileRenamed;
+inputFileWatcher.Error += WatcherError;
+
+inputFileWatcher.EnableRaisingEvents = true;
+
+WriteLine("Press enter to quit.");
 ReadLine();
 
-static void ProcessSingleFile( string filePath )
+static void FileCreated(object sender, FileSystemEventArgs e)
 {
-    var fileProcessor = new FileProcesser( filePath );
-    fileProcessor.Process();
+    WriteLine($"* File created: " +
+        $"{e.Name} - type: {e.ChangeType}");
+
+    AddToCache(e.FullPath);
 }
 
-static void ProcessDirectory( string directoryPath, string fileType )
+static void FileChanged(object sender, FileSystemEventArgs e)
 {
-    //string[] allFiles = Directory.GetFiles(directoryPath); //to get all files
-    switch (fileType)
+    WriteLine($"* File changed: " +
+        $"{e.Name} - type: {e.ChangeType}");
+
+    AddToCache(e.FullPath);
+}
+
+static void FileDeleted(object sender, FileSystemEventArgs e)
+{
+    WriteLine($"* File deleted: " +
+        $"{e.Name} - type: {e.ChangeType}");
+}
+
+static void FileRenamed(object sender, RenamedEventArgs e)
+{
+    WriteLine($"* File renamed: " +
+        $"{e.OldName} to {e.Name} - type: {e.ChangeType}");
+}
+
+static void WatcherError(object sender, ErrorEventArgs e)
+{
+    WriteLine($"ERROR: file system watching may no longer be active: {e.GetException}");
+}
+
+static void AddToCache(string fullPath)
+{
+    var item = new CacheItem(fullPath, fullPath);
+
+    var policy = new CacheItemPolicy
     {
-        case "TEXT":
-            string[] textFiles
-                = Directory.GetFiles(directoryPath, "*.txt");
-            foreach (var textFilePath in textFiles)
-            {
-                var fileProcessor = new FileProcesser(textFilePath);
-                fileProcessor.Process();
-            }
-            break;
-        default:
-            WriteLine($"ERROR: {fileType} is not supported");
-            return;
+        RemovedCallback = ProcessFile,
+        SlidingExpiration = TimeSpan.FromSeconds(2),
+    };
+
+    FilesToProcess.Files.Add(item, policy);
+}
+
+static void ProcessFile(CacheEntryRemovedArguments args)
+{
+    WriteLine($"* Cached item removed: {args.CacheItem.Key} because {args.RemovedReason}");
+    if (args.RemovedReason == CacheEntryRemovedReason.Expired)
+    {
+        var fileProcessor = new FileProcesser(args.CacheItem.Key);
+        fileProcessor.Process();
+    }
+    else
+    {
+        WriteLine($"WARNING: {args.CacheItem.Key} was removed unexpectantly and may");
     }
 }
+
+static void ProcessExistingFiles(string inputDirectory)
+    {
+        WriteLine($"Checking {inputDirectory} for existing files");
+    foreach (var filepath in Directory.EnumerateFiles(inputDirectory))
+    {
+        WriteLine($" - Found {filepath}");
+        AddToCache(filepath);
+    }
+}
+
 
 
 

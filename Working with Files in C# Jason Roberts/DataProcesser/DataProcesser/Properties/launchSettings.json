@@ -2,7 +2,7 @@
   "profiles": {
     "DataProcesser": {
       "commandName": "Project",
-      "commandLineArgs": "--dir \"C:\\Users\\admin\\Desktop\\C-Sharp-Interview-Prep\\Working with Files in C# Jason Roberts\\02\\demos\\before\\psdata\\in\" TEXT"
+      "commandLineArgs": "\"C:\\Users\\admin\\Desktop\\C-Sharp-Interview-Prep\\Working with Files in C# Jason Roberts\\02\\demos\\before\\psdata\\in\" "
     }
   }
 }

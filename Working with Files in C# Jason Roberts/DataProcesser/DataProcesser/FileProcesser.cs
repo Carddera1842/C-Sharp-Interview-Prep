@@ -71,20 +71,9 @@ internal class FileProcesser
 
         //Determine type of file
         string extention = Path.GetExtension(InputFilePath);
-        switch (extention)
-        {
-            case ".txt":
-                ProcessTextFile(inProgressFilePath);
-                break;
-            default:
-                WriteLine($"{extention} is an unsupported file type.");
-                break;
-                
-        }
 
-        //Move file after processing is complete
-        string completedDirectoryPath 
-            = Path.Combine(rootDirectoryPath, CompletedDirectoryName);
+        string completedDirectoryPath
+           = Path.Combine(rootDirectoryPath, CompletedDirectoryName);
         Directory.CreateDirectory(completedDirectoryPath);
 
         string fileNameWithCompletedExtention
@@ -95,21 +84,31 @@ internal class FileProcesser
         string completedFilePath
             = Path.Combine(completedDirectoryPath, completedFileName);
 
-        WriteLine($"Moving {inProgressFilePath} to {completedFilePath}");
-        File.Move(inProgressFilePath, completedFilePath);
+        switch (extention)
+        {
+            case ".txt":
+                var textProcessor
+                    = new TextFileProcessor(inProgressFilePath, completedFilePath);
+                textProcessor.Process();
+                break;
 
-        string? inProgressDirectoryPath
-            = Path.GetDirectoryName(inProgressFilePath);
-        Directory.Delete(inProgressDirectoryPath!, true);
+            case ".data":
+                var binaryProcessor = new BinaryFileProcessor(inProgressFilePath, completedFilePath);
+                binaryProcessor.Process(); 
+                break;
 
+            default:
+                WriteLine($"{extention} is an unsupported file type.");
+                break;
+                
+        }
+
+        WriteLine($"Completed processing of {inProgressFilePath}");
+
+        WriteLine($"Deleting {inProgressFilePath}");
+        File.Delete(inProgressFilePath);
+        
     }
 
-    private void ProcessTextFile(string inProgressFilePath)
-    {
-        WriteLine($"Processing text file {inProgressFilePath}");
-
-        //Read in and precess
-
-
-    }
+   
 }
