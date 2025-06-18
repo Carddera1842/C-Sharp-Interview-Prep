@@ -2,7 +2,7 @@
 
 namespace Globalmantics.Domain;
 
-public abstract record ToDo(Guid id,
+public abstract record ToDo(Guid Id,
                             string Title,
                             DateTimeOffset CreatedDate,
                             User CreatedBy,
