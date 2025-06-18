@@ -9,7 +9,7 @@ public class TodoInMemoryRepository<T> : IRepository<T>
     private ConcurrentDictionary<Guid, T> Items { get; } = new();
     public Task AddAsync(T item)
     {
-        Items.TryAdd(item.id, item);
+        Items.TryAdd(item.Id, item);
 
         return Task.CompletedTask;
     }

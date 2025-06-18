@@ -98,6 +98,8 @@ public abstract class BaseTodoViewModel<T> : ObservableObject, ITodoViewModel
             if (Model is not null)
             {
                 Model = Model with { IsDeleted = true };
+
+                //TODO: Send message that Model is deleted
             }
         });
     }
