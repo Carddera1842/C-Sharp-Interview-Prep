@@ -1,24 +1,32 @@
-﻿namespace DataProcesser;
+﻿using System.IO.Abstractions;
 
-internal class BinaryFileProcessor
+namespace DataProcesser;
+
+public class BinaryFileProcessor
 {
+    private readonly IFileSystem _fileSystem;
     public string InputFilePath { get; }
 
     public string OutputFilePath { get; }
 
-    public BinaryFileProcessor(string inputFilePath, string outputFilePath)
+    public BinaryFileProcessor(string inputFilePath, 
+                                string outputFilePath,
+                                IFileSystem filesystem)
     {
         InputFilePath = inputFilePath;  
         OutputFilePath = outputFilePath;
+        _fileSystem = filesystem;
     }
+
+    public BinaryFileProcessor(string inputFilePath, string outputFilePath)
+        : this(inputFilePath, outputFilePath, new FileSystem()) { }
 
     public void Process()
     {
-        var openToReadFrom = new FileStreamOptions { Mode = FileMode.Open };
-        using FileStream inputFileStream = File.Open(InputFilePath, openToReadFrom);
+        using var inputFileStream = _fileSystem.File.Open(InputFilePath, FileMode.Open);
         using var binaryReader = new BinaryReader(inputFileStream); 
 
-        using FileStream outputFileStream = File.Create(OutputFilePath);
+        using var outputFileStream = _fileSystem.File.Create(OutputFilePath);
         using var binaryWriter = new BinaryWriter(outputFileStream);
 
         byte largestByte = 0;
