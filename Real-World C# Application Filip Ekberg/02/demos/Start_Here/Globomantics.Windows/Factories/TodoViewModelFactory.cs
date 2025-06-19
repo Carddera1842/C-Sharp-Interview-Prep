@@ -1,4 +1,6 @@
 ﻿using Globalmantics.Domain;
+using Globomantics.Domain;
+using Globomantics.Infrastructure.Data.Models;
 using Globomantics.Windows.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -30,7 +32,7 @@ public class TodoViewModelFactory
         {
             nameof(Bug) => serviceProvider.GetService<BugViewModel>(),
             nameof(Feature) => serviceProvider.GetService<FeatureViewModel>(),
-            _ => throw new NotImplementedException(),
+            _ => throw new NotImplementedException()
         };
 
         ArgumentNullException.ThrowIfNull(viewModel);
@@ -46,5 +48,10 @@ public class TodoViewModelFactory
         }
 
         return viewModel;
+    }
+
+    internal ITodoViewModel CreateViewModel(string type, Infrastructure.Data.Models.Todo[] todos, Domain.Todo? model)
+    {
+        throw new NotImplementedException();
     }
 }

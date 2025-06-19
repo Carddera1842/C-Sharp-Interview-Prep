@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Globalmantics.Domain;
+using Globomantics.Windows.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -100,6 +102,7 @@ public abstract class BaseTodoViewModel<T> : ObservableObject, ITodoViewModel
                 Model = Model with { IsDeleted = true };
 
                 //TODO: Send message that Model is deleted
+                WeakReferenceMessenger.Default.Send<TodoDeleteMessage>(new(Model));
             }
         });
     }

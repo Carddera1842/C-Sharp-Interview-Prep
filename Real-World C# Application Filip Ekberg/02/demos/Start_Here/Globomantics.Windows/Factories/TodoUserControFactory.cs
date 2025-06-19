@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace Globomantics.Windows.Factories;
 
-public class TodoUserControFactory
+public class TodoUserControlFactory
 {
     public static UserControl CreateUserControl(ITodoViewModel viewModel)
     {
@@ -15,6 +15,7 @@ public class TodoUserControFactory
             FeatureViewModel => new FeatureControl(viewModel),
             _ => throw new NotImplementedException()
         };
+
         return control;
     }
 }

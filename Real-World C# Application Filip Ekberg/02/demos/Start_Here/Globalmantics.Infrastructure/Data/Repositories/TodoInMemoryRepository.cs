@@ -1,12 +1,13 @@
-﻿using Globalmantics.Domain;
+﻿using Globomantics.Domain;
 using System.Collections.Concurrent;
 
-namespace Globalmantics.Infrastructure.Data.Repositories;
+namespace Globomantics.Infrastructure.Data.Repositories;
 
 public class TodoInMemoryRepository<T> : IRepository<T>
-    where T : ToDo
+    where T : Todo
 {
     private ConcurrentDictionary<Guid, T> Items { get; } = new();
+
     public Task AddAsync(T item)
     {
         Items.TryAdd(item.Id, item);

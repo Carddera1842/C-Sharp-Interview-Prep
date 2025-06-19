@@ -1,10 +1,13 @@
-﻿using Globalmantics.Domain;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Globomantics.Domain;
 using Globomantics.Windows.Factories;
+using Globomantics.Windows.Messages;
 using Globomantics.Windows.ViewModels;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -16,13 +19,13 @@ public partial class MainWindow : Window
     private readonly MainViewModel mainViewModel;
     private readonly TodoViewModelFactory todoViewModelFactory;
 
-    public MainWindow(MainViewModel mainViewModel, 
+    public MainWindow(MainViewModel mainViewModel,
         TodoViewModelFactory todoViewModelFactory)
-    { 
+    {
         InitializeComponent();
 
         this.mainViewModel = mainViewModel;
-
+        this.todoViewModelFactory = todoViewModelFactory;
         DataContext = mainViewModel;
 
         mainViewModel.ShowSaveFileDialog = () => OpenCreateFileDialog();
@@ -35,6 +38,17 @@ public partial class MainWindow : Window
         };
 
         TodoType.ItemsSource = TodoViewModelFactory.TodoTypes;
+
+        WeakReferenceMessenger.Default.Register<TodoSavedMessage>(this,
+            (sender, message) => {
+                CreateTodoControlContainer.Children.Clear();
+            });
+
+        WeakReferenceMessenger.Default.Register<TodoDeleteMessage>(this,
+            (sender, message) => {
+                CreateTodoControlContainer.Children.Clear();
+            });
+
     }
 
     protected override async void OnActivated(EventArgs e)
@@ -51,22 +65,20 @@ public partial class MainWindow : Window
         }
     }
 
-    private UserControl CreateUserControl(string type, 
-        // TODO: Change object to domain object type
-        ToDo? model = default)
+    private UserControl CreateUserControl(string type,
+        Todo? model = default)
     {
         ITodoViewModel viewModel = todoViewModelFactory.CreateViewModel(
             type,
-            null,
+            mainViewModel.Unfinished.ToArray(),
             model
         );
-
-        viewModel.ShowError = (message) => { MessageBox.Show(message);  };
+        viewModel.ShowError = (message) => { MessageBox.Show(message); };
         viewModel.ShowAlert = (message) => { MessageBox.Show(message); };
-        viewModel.ShowOpenFileDialog
-            = () => OpenFileDialog(".jpg", "Images (.jpg |*.jpg", true);
+        viewModel.ShowOpenFileDialog = ()
+            => OpenFileDialog(".jpg", "Images (.jpg)|*.jpg", true);
 
-        return TodoUserControFactory.CreateUserControl(viewModel);
+        return TodoUserControlFactory.CreateUserControl(viewModel);
     }
 
     private void Search_OnClick(object sender, RoutedEventArgs e)
@@ -94,7 +106,7 @@ public partial class MainWindow : Window
 
         var control = CreateUserControl(
             list.SelectedValue.GetType().Name,
-            list.SelectedValue as ToDo);
+            list.SelectedValue as Todo);
 
         CreateTodoControlContainer.Children.Add(control);
 
